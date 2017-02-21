@@ -41,13 +41,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   delta: 2.42
-  speed: 9
+  speed: 12
   sizeField: 64
   generation: 0
   floor: {fileID: 115896, guid: b167611645bbbc34da70fbb1d553b24c, type: 2}
   block: {fileID: 144348, guid: 47b9937d8c81ad14db84d7c592b86d53, type: 2}
   k: 12
   Equalize: 1
+  exitBlock: {fileID: 0}
   FixedBlocks: []
   Blocks: []
   DirectFlow: []

@@ -24,7 +24,7 @@ GameObject:
   - component: {fileID: 58621622496749382}
   - component: {fileID: 114483242100048016}
   m_Layer: 0
-  m_Name: exit
+  m_Name: Exit
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -68,6 +68,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3d0807523c95b844389db0bff37c0a70, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  level: 0
 --- !u!114 &114955681840911870
 MonoBehaviour:
   m_ObjectHideFlags: 1

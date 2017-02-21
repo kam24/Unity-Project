@@ -7,13 +7,10 @@ using UnityEngine.SceneManagement;
 
 public class Manager : MonoBehaviour
 {
-    /*
-    //Массив
-    public int sizeOfMatrix = 64;//Сторона площади поля
-    */
+
     //Постоянные
     public float delta = 2.42f;  //Расстояние между соседними неподвижными объектами
-    public float speed; //Скорость перемещения блоков
+    [SerializeField]public float speed; //Скорость перемещения блоков
     public int sizeField = 64;
 
     //Генерация блоков
@@ -23,6 +20,7 @@ public class Manager : MonoBehaviour
     public bool Equalize = true;
 
     //Создание целей
+    public GameObject exitBlock;
     public GameObject[]  FixedBlocks, Blocks, DirectFlow, Players;
     public List<GameObject> RelocatableBlocks, Floor, AllRelocatableBlocks, Pits,Tiles;
     public GameObject[,] fixedBlocks,tiles/*, allRelocatableBlocks*/;
@@ -52,24 +50,7 @@ public class Manager : MonoBehaviour
 
     void Start()
     {
-        //Debug.Log(SceneManager.GetActiveScene().name);
-        /*
-        string s = "level01";
-        int i = 0;
-        while (SceneManager.GetSceneByName(s) != null)
-        {
-            levels.Add(SceneManager.GetSceneByName(s));
-            ++i;
-            string index = i.ToString();
-            string newIndex = (i + 1).ToString();
-            s = s.Replace(index, newIndex);
-            Debug.Log(s);
-            if (i > 10)
-            {
-                break;
-            }
-        }*/
-
+        exitBlock = GameObject.Find("Exit");
         RelocatableBlocks = new List<GameObject>(GameObject.FindGameObjectsWithTag("Relocatable"));
         Players = GameObject.FindGameObjectsWithTag("Player");
         Floor = new List<GameObject>(GameObject.FindGameObjectsWithTag("Floor"));
@@ -98,6 +79,8 @@ public class Manager : MonoBehaviour
 
     void Update()
     {
+        if (Input.GetButtonDown("Menu") == true)
+            SceneManager.LoadScene("Main Menu");
         CameraScaleControl();
     }
 
@@ -116,8 +99,8 @@ public class Manager : MonoBehaviour
 
     void OnGUI()
     {
-        GUI.Box(new Rect(0, 0, 560, 25), "W, A, S, D - перемещение. R - рестарт сцены. E - прикрепление блока. Test Build");
-        GUI.Box(new Rect(0, 25, 560, 25), "F, G - увеличение/уменьшение масштаба камеры, С - установка масштаба по умолчанию");
+        GUI.Box(new Rect(0, 0, 200, 25), "Escape - Go to Main Menu");
+        GUI.Box(new Rect(0, 25, 50, 25), SceneManager.GetActiveScene().name);
     }
 
     public Vector2 Target(GameObject go, byte dir)
@@ -137,6 +120,11 @@ public class Manager : MonoBehaviour
             if (posGO + Direction(dir) == (Vector2)tile.transform.position)
                 empty = false;
         if (empty == true)
+        {
+            wrongDir = dir;
+            return (target);
+        }
+        if (go.tag== "Relocatable"&& TargetValue(go,dir)==(Vector2)exitBlock.transform.position)
         {
             wrongDir = dir;
             return (target);

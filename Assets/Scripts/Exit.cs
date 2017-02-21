@@ -23,6 +23,7 @@ public class Exit : MonoBehaviour {
     {
         if (col.tag == "Player")
         {
+            col.gameObject.GetComponent<PlayerMove>().targetAccess = false;
             reductionObject = true;
             Object = col.gameObject;
             Vector2 tp = transform.position;
@@ -33,8 +34,15 @@ public class Exit : MonoBehaviour {
                 reductionObject = false;
                 levelName = SceneManager.GetActiveScene().name;
                 level = int.Parse(levelName.Substring(6));
-                levelName = levelName.Replace(level.ToString(), (level + 1).ToString());
-                SceneManager.LoadScene(levelName);
+                if (level + 1 >= 8)
+                {
+                    SceneManager.LoadScene("Main Menu");
+                }
+                else
+                {
+                    levelName = levelName.Replace(level.ToString(), (level + 1).ToString());
+                    SceneManager.LoadScene(levelName);
+                }
             }
         }
     }

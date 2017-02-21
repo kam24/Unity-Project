@@ -7,12 +7,11 @@ public class PlayerMove : MonoBehaviour
     //Для импорта значений
     private Manager mgr;    //Ссылка на скрипт Manager
     private BlockMove bm;   //Ссылка на скрипт BlockMove текущего объекта
-    private float delta, speed;
+    private float delta;
 
     //Установка целей
     public byte dir; //Направление движения (↑ = 0, → = 1, ↓ = 2, ← = 3)
     public bool flowTargetX = false, flowTargetY = false, directFlowMoving = false, targetAccess=true;
-    private Vector2 previousTarget;
     public Vector2 target;
     public byte anotherDir;
     private GameObject[] buttons;
@@ -28,7 +27,6 @@ public class PlayerMove : MonoBehaviour
     int blocksSum = 0;
     bool choosingSyncBlock = false;
     GameObject[] syncBlocks = new GameObject[4];
-    byte[] syncDirs = new byte[4];
 
 
     //Остальное
@@ -39,12 +37,10 @@ public class PlayerMove : MonoBehaviour
         mgr = GameObject.Find("Manager").GetComponent<Manager>();
         bm = gameObject.GetComponent<BlockMove>();
         delta = mgr.delta;
-        speed = mgr.speed;        
-
     }
     void Start()
     {
-        lastTarget = bm.target = previousTarget = transform.position;        
+        lastTarget = bm.target  = transform.position;        
     }
 
     void Update()
@@ -224,8 +220,8 @@ public class PlayerMove : MonoBehaviour
         }
         if (targetAccess == true)
             bm.target = mgr.Target(gameObject, dir);
-        if (lastTargetPos != target)
-            previousTarget = lastTargetPos;
+        //if (lastTargetPos != target)
+        //    previousTarget = lastTargetPos;
         targetAccess = true;
     }
 

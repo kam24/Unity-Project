@@ -9,14 +9,12 @@ public class Restart : MonoBehaviour {
     void OnMouseUp()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-        Debug.Log("Restarted");
     }
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.R))
         {
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-            Debug.Log("Restarted");
         }
 
     }
